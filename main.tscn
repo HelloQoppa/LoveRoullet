@@ -1,0 +1,94 @@
+[gd_scene load_steps=9 format=3 uid="uid://jcjvrpuftgds"]
+
+[ext_resource type="Script" path="res://Main.cs" id="1_h05fp"]
+[ext_resource type="Texture2D" uid="uid://b1jsej3685lwe" path="res://assets/background.png" id="2_hcgxo"]
+[ext_resource type="Texture2D" uid="uid://bl7eyk86tr0v6" path="res://assets/roulette.png" id="2_mpher"]
+[ext_resource type="Texture2D" uid="uid://blsc0n3qrfgde" path="res://assets/button.png" id="4_xg8be"]
+[ext_resource type="AudioStream" uid="uid://dew87y8a7lbls" path="res://assets/audio/audioroleta.mp3" id="5_8ruds"]
+
+[sub_resource type="Animation" id="Animation_o8fve"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RouletteSprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_o1xqb"]
+resource_name = "SpinAnimation"
+step = 6.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RouletteSprite:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0001, 0.0002, 0.0003, 0.0004, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 0.0, 0.0, 0.0, 62.8319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eegop"]
+_data = {
+"RESET": SubResource("Animation_o8fve"),
+"SpinAnimation": SubResource("Animation_o1xqb")
+}
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_h05fp")
+
+[node name="background" type="Sprite2D" parent="."]
+position = Vector2(962.667, 541)
+scale = Vector2(0.998264, 0.994444)
+texture = ExtResource("2_hcgxo")
+
+[node name="RouletteSprite" type="Sprite2D" parent="."]
+position = Vector2(960, 400)
+scale = Vector2(0.816667, 0.816667)
+texture = ExtResource("2_mpher")
+offset = Vector2(0, 53.8776)
+
+[node name="Button" type="Button" parent="."]
+offset_left = 680.0
+offset_top = 840.0
+offset_right = 1239.0
+offset_bottom = 1030.0
+icon = ExtResource("4_xg8be")
+flat = true
+icon_alignment = 1
+
+[node name="ItemLabel" type="Label" parent="."]
+offset_left = 752.0
+offset_top = 736.0
+offset_right = 1167.0
+offset_bottom = 798.0
+theme_override_font_sizes/font_size = 26
+text = "Você terá que fazer:"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+justification_flags = 171
+uppercase = true
+
+[node name="SpinTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="ClickSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_8ruds")
+
+[node name="RouletteAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_eegop")
+}
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
