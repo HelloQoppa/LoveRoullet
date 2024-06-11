@@ -1,0 +1,79 @@
+[gd_scene load_steps=8 format=3 uid="uid://bx40k0jjeaghu"]
+
+[ext_resource type="Script" path="res://mainardente.cs" id="1_84ruj"]
+[ext_resource type="Texture2D" uid="uid://b1jsej3685lwe" path="res://assets/background.png" id="1_iigge"]
+[ext_resource type="Texture2D" uid="uid://bntkjyvjjomh7" path="res://assets/RoletaQuente.png" id="2_ahu5b"]
+[ext_resource type="Texture2D" uid="uid://blsc0n3qrfgde" path="res://assets/button.png" id="3_j06na"]
+[ext_resource type="AudioStream" uid="uid://dew87y8a7lbls" path="res://assets/audio/audioroleta.mp3" id="4_le3le"]
+
+[sub_resource type="Animation" id="Animation_e88ui"]
+resource_name = "SpinAnimationQuente"
+step = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RouletteSpriteQuente:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.962185),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 62.8319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tylhb"]
+_data = {
+"SpinAnimationQuente": SubResource("Animation_e88ui")
+}
+
+[node name="MainQuente" type="Node2D"]
+script = ExtResource("1_84ruj")
+
+[node name="backgroundQuente" type="Sprite2D" parent="."]
+position = Vector2(960, 544)
+texture = ExtResource("1_iigge")
+
+[node name="RouletteSpriteQuente" type="Sprite2D" parent="."]
+position = Vector2(968, 360)
+rotation = 62.8319
+texture = ExtResource("2_ahu5b")
+offset = Vector2(-0.00012207, 55.0012)
+
+[node name="ButtonQuente" type="Button" parent="."]
+offset_left = 696.0
+offset_top = 864.0
+offset_right = 1255.0
+offset_bottom = 1054.0
+size_flags_vertical = 8
+icon = ExtResource("3_j06na")
+flat = true
+
+[node name="ItemLabelQuente" type="Label" parent="."]
+offset_left = 664.0
+offset_top = 744.0
+offset_right = 1256.0
+offset_bottom = 800.0
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 26
+text = "Você terá que:"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+justification_flags = 171
+uppercase = true
+
+[node name="SpinTimerQuente" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="ClickSoundPlayerQuente" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_le3le")
+
+[node name="RouletteAnimationPlayerQuente" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_tylhb")
+}
+
+[connection signal="pressed" from="ButtonQuente" to="." method="_on_button_quente_pressed"]

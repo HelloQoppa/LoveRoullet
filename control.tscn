@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://c15fu2048blxf"]
+
+[ext_resource type="Script" path="res://control.cs" id="1_q5rkx"]
+[ext_resource type="Texture2D" uid="uid://dc3axrov4l2n8" path="res://assets/aquecendo.png" id="1_sy34r"]
+[ext_resource type="Texture2D" uid="uid://b1jsej3685lwe" path="res://assets/background.png" id="2_55t2m"]
+[ext_resource type="Texture2D" uid="uid://dk4tflc0oe480" path="res://assets/quente.png" id="2_r1fef"]
+[ext_resource type="Texture2D" uid="uid://me4thjojvp33" path="res://assets/intenso.png" id="3_xqms7"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_q5rkx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(960, 544)
+texture = ExtResource("2_55t2m")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -376.0
+offset_top = -284.0
+offset_right = 439.0
+offset_bottom = 536.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ButtonAquecendo" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+icon = ExtResource("1_sy34r")
+flat = true
+
+[node name="ButtonQuente" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+icon = ExtResource("2_r1fef")
+flat = true
+
+[node name="ButtonIntenso" type="Button" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+disabled = true
+icon = ExtResource("3_xqms7")
+flat = true
+
+[connection signal="pressed" from="VBoxContainer/ButtonAquecendo" to="." method="_on_button_pressed_aquecendo"]
+[connection signal="pressed" from="VBoxContainer/ButtonQuente" to="." method="_on_button_pressed_quente"]
+[connection signal="pressed" from="VBoxContainer/ButtonIntenso" to="." method="_on_button_pressed_intenso"]
